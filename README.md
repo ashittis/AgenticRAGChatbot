@@ -1,7 +1,3 @@
-Here's your **clean, professional `README.md` content (no emojis)** for the *Agentic RAG Chatbot with Multi-Format Support (MCP-based)* project:
-
----
-
 # Agentic RAG Chatbot with Multi-Format Support (MCP-based)
 
 This project is an **agent-based Retrieval-Augmented Generation (RAG) chatbot** that allows users to upload documents of various formats and ask questions about their content. The architecture follows an agentic design and uses a **Model Context Protocol (MCP)** for message-based communication between agents.
