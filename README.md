@@ -1,36 +1,33 @@
-Agentic RAG Chatbot with Multi-Format Support (MCP-based)
-This project is an agent-based Retrieval-Augmented Generation (RAG) chatbot that allows users to upload documents of various formats and ask questions about their content. The architecture follows an agentic design and uses a Model Context Protocol (MCP) for message-based communication between agents.
+Here's your **clean, professional `README.md` content (no emojis)** for the *Agentic RAG Chatbot with Multi-Format Support (MCP-based)* project:
 
-🔗 Links
-Demo Video
+---
 
-Architecture Diagram PDF
+# Agentic RAG Chatbot with Multi-Format Support (MCP-based)
 
-Features
-Upload documents in multiple formats: PDF, DOCX, PPTX, TXT, CSV, MD
+This project is an **agent-based Retrieval-Augmented Generation (RAG) chatbot** that allows users to upload documents of various formats and ask questions about their content. The architecture follows an agentic design and uses a **Model Context Protocol (MCP)** for message-based communication between agents.
 
-Semantic chunking and vector storage using FAISS
+## 🔗 Links
 
-Embedding via HuggingFace Sentence Transformers (all-MiniLM-L6-v2)
+* [Demo Video](https://youtu.be/BmXY5d8MtAY)
+* [Architecture Diagram PDF](https://github.com/ashittis/AgenticRAGChatbot/blob/main/architrcturepdf.pdf)
 
-Offline, free language model responses using Ollama (Gemma, Mistral, etc.)
+## Features
 
-Modular architecture with three core agents:
+* Upload documents in multiple formats: **PDF, DOCX, PPTX, TXT, CSV, MD**
+* Semantic chunking and vector storage using **FAISS**
+* Embedding via **HuggingFace Sentence Transformers** (`all-MiniLM-L6-v2`)
+* Offline, free language model responses using **Ollama** (Gemma, Mistral, etc.)
+* Modular architecture with three core agents:
 
-IngestionAgent
+  * `IngestionAgent`
+  * `RetrievalAgent`
+  * `LLMResponseAgent`
+* Communication between agents via structured **MCP messages**
+* **Streamlit-based interactive UI**
 
-RetrievalAgent
+## Architecture Overview
 
-LLMResponseAgent
-
-Communication between agents via structured MCP messages
-
-Streamlit-based interactive UI
-
-Architecture Overview
-pgsql
-Copy
-Edit
+```
 User → UI (Streamlit)
         ↓
 IngestionAgent → parses & chunks uploaded files
@@ -40,10 +37,11 @@ RetrievalAgent → embeds chunks & stores in FAISS
 LLMResponseAgent → builds prompt + sends to Ollama LLM
         ↓
 Streamlit → Displays response
-MCP Message Example
-json
-Copy
-Edit
+```
+
+### MCP Message Example
+
+```json
 {
   "type": "RETRIEVAL_RESULT",
   "sender": "RetrievalAgent",
@@ -54,32 +52,35 @@ Edit
     "query": "What KPIs were tracked in Q1?"
   }
 }
-Tech Stack
-Component	Tool/Library
-Language Model	Ollama (e.g., Gemma, Mistral)
-Embeddings	HuggingFace Sentence Transformers
-Vector DB	FAISS
-UI	Streamlit
-File Parsing	PyMuPDF, python-docx, python-pptx, pandas
-Communication	Custom MCP (Model Context Protocol)
-LLM Access	OpenAI-compatible API via Ollama
+```
 
-Installation
-Prerequisites
-Python 3.10+
+## Tech Stack
 
-Ollama installed and running locally
+| Component      | Tool/Library                              |
+| -------------- | ----------------------------------------- |
+| Language Model | Ollama (e.g., Gemma, Mistral)             |
+| Embeddings     | HuggingFace Sentence Transformers         |
+| Vector DB      | FAISS                                     |
+| UI             | Streamlit                                 |
+| File Parsing   | PyMuPDF, python-docx, python-pptx, pandas |
+| Communication  | Custom MCP (Model Context Protocol)       |
+| LLM Access     | OpenAI-compatible API via Ollama          |
 
-A model pulled via Ollama, for example:
+## Installation
 
-bash
-Copy
-Edit
-ollama run gemma
-Install Python Dependencies
-bash
-Copy
-Edit
+### Prerequisites
+
+* Python 3.10+
+* Ollama installed and running locally
+* A model pulled via Ollama, for example:
+
+  ```bash
+  ollama run gemma
+  ```
+
+### Install Python Dependencies
+
+```bash
 git clone https://github.com/ashittis/AgenticRAGChatbot.git
 cd AgenticRAGChatbot
 python -m venv rag_env
@@ -88,33 +89,33 @@ rag_env\Scripts\activate
 # For macOS/Linux
 source rag_env/bin/activate
 pip install -r requirements.txt
-Running the Application
+```
+
+## Running the Application
+
 Start your Ollama model:
 
-bash
-Copy
-Edit
+```bash
 ollama run gemma
+```
+
 Then launch the chatbot UI:
 
-bash
-Copy
-Edit
+```bash
 cd ui
 streamlit run app.py
-Usage
-Upload one or more documents in supported formats.
+```
 
-Wait for the system to parse and process the content.
+## Usage
 
-Ask questions about the documents.
+* Upload one or more documents in supported formats.
+* Wait for the system to parse and process the content.
+* Ask questions about the documents.
+* The answer will appear in the chat window, with **"Thinking..."** replaced upon response.
 
-The answer will appear in the chat window, with "Thinking..." replaced upon response.
+## Folder Structure
 
-Folder Structure
-kotlin
-Copy
-Edit
+```
 agentic-rag-chatbot/
 ├── agents/
 │   ├── ingestion_agent.py
@@ -127,21 +128,20 @@ agentic-rag-chatbot/
 │   └── app.py
 ├── data/
 ├── README.md
-Challenges Faced
-Ensuring asynchronous behavior in Streamlit UI while maintaining stateful responses
+```
 
-Handling multi-format document parsing reliably
+## Challenges Faced
 
-Maintaining model compatibility with Ollama’s local inference API
+* Ensuring asynchronous behavior in Streamlit UI while maintaining stateful responses
+* Handling multi-format document parsing reliably
+* Maintaining model compatibility with Ollama’s local inference API
+* Ensuring UI updates dynamically (e.g., replacing “Thinking…” in real-time)
 
-Ensuring UI updates dynamically (e.g., replacing “Thinking…” in real-time)
+## Improvements & Suggestions
 
-Improvements & Suggestions
-Add support for multiple concurrent documents and chunk source attribution
+* Add support for multiple concurrent documents and chunk source attribution
+* Stream results live using streaming APIs from Ollama-compatible backends
+* Add a `CoordinatorAgent` for managing trace and logging
+* Extend to support **LangChain** or **LlamaIndex** integration in future versions
 
-Stream results live using streaming APIs from Ollama-compatible backends
-
-Add a CoordinatorAgent for managing trace and logging
-
-Extend to support LangChain or LlamaIndex integration in future versions
-
+---
